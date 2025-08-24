@@ -14,7 +14,7 @@ async function getFileHash(path) {
 }
 
 
-getFileHash("../malware/malware.xlsm");
+// getFileHash("../malware/malware.xlsm");
 
 
 export { getFileHash };

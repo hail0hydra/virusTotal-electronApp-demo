@@ -1,43 +1,33 @@
-// import fs from 'fs/promises';
-import { getFileHash } from './fileHash';
+import { getFileHash } from './fileHash.js';
 
-const api_key = process.env.VT_API_KEY;
 
-const path = "../malware/malware.xlsm";
-const hash = await getFileHash(path);
+async function virusTotal(filePath, api_key) {
+  if (!filePath) throw new Error("No file path provided");
 
-// const hash = "1b109efade90ace7d953507adb1f1563";
+  const hash = await getFileHash(filePath);
+  console.log("MD5 hash:", hash);
 
-async function virusTotal(){
-    const res = await fetch(`https://www.virustotal.com/api/v3/files/${hash}`, {
-        method: "GET",
-        headers: {
-            'accept': 'application/json',
-            'x-apikey': api_key
-        }
-    });
-
-    const data = await res.json();
-
-    // await fs.writeFile("out.json", JSON.stringify(data, null, 2), "utf-8");
-
-    const point = Object.keys(data)[0]
-
-    if (data[point].attributes.popular_threat_classification.popular_threat_name[0].count > 0){
-        console.log("malicious 😈");
-        return  data[point].attributes.popular_threat_classification.popular_threat_name[0].count;
-    } else {
-        console.log("safe! 😍");
-        return 0;
+  const res = await fetch(`https://www.virustotal.com/api/v3/files/${hash}`, {
+    method: "GET",
+    headers: {
+      'accept': 'application/json',
+      'x-apikey': api_key
     }
+  });
 
+  const data = await res.json();
 
+  const stats = data.data?.attributes?.last_analysis_stats;
+  console.log("last_analysis_stats:", stats);
+
+  if (stats?.malicious > 0){
+    console.log("malicious 😈");
+    return stats.malicious;
+  } else {
+    console.log("safe! 😍");
+    return 0;
+  }
 }
 
-const file =  await virusTotal();
-
-console.log(file);
-
-
-
 export { virusTotal };
+

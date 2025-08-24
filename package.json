@@ -2,6 +2,7 @@
     "name": "virtustotal-elapp",
     "version": "1.0.0",
     "description": "simple file scanner for malware",
+    "type": "module",
     "main": "main.js",
     "scripts": {
         "start": "electron .",
@@ -12,5 +13,8 @@
     "license": "ISC",
     "devDependencies": {
         "electron": "^37.3.1"
+    },
+    "dependencies": {
+        "dotenv": "^17.2.1"
     }
 }

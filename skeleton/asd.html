@@ -4,40 +4,41 @@
     <meta charset="UTF-8" />
     <title>VT Electron</title>
     <style>
+      /* Base styles */
       body {
         margin: 0;
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         background-color: #121212;
         color: #ffffff;
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-        align-items: center;
-        justify-content: center;
       }
 
       h1 {
-        color: #1e90ff;
-        margin-bottom: 40px;
+        color: #1e90ff; /* blue accent */
+        text-align: center;
+        margin-top: 20px;
       }
 
-      .buttons {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-        align-items: center;
+      /* Container */
+      .container {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 20px;
+        background-color: #1e1e1e;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
       }
 
+      /* Buttons */
       button {
         background-color: #1e90ff;
         color: #fff;
         border: none;
-        padding: 12px 25px;
+        padding: 10px 20px;
         border-radius: 6px;
         cursor: pointer;
         font-size: 16px;
+        margin-right: 10px;
         transition: background-color 0.2s, transform 0.1s;
-        width: 180px;
       }
 
       button:hover {
@@ -45,31 +46,41 @@
         transform: translateY(-2px);
       }
 
+      /* File input */
+      input[type="file"] {
+        margin-bottom: 20px;
+        padding: 6px;
+        border-radius: 4px;
+        background-color: #2a2a2a;
+        color: #fff;
+        border: 1px solid #444;
+      }
+
+      /* Output */
       #output {
-        margin-top: 30px;
-        padding: 20px;
+        margin-top: 20px;
+        padding: 15px;
         background-color: #2a2a2a;
         border-radius: 6px;
         white-space: pre-wrap;
         word-wrap: break-word;
-        min-width: 300px;
-        text-align: center;
-        font-size: 16px;
       }
 
+      /* Status indicators */
       .safe {
-        color: #28a745;
+        color: #28a745; /* green */
         font-weight: bold;
       }
 
       .malicious {
-        color: #dc3545;
+        color: #dc3545; /* red */
         font-weight: bold;
       }
 
+      /* Footer */
       .footer {
         text-align: center;
-        margin-top: 50px;
+        margin-top: 30px;
         font-size: 14px;
         color: #888;
       }
@@ -86,12 +97,13 @@
     </style>
   </head>
   <body>
-    <h1>VirusTotal Checker</h1>
-    <div class="buttons">
+    <div class="container">
+      <h1>VirusTotal Checker</h1>
+      <!-- <input type="file" id="fileInput" /> -->
       <button id="pickFile">Pick File</button>
       <button id="scanbutton">Scan File</button>
+      <pre id="output"></pre>
     </div>
-    <pre id="output"></pre>
 
     <div class="footer">
       <a href="https://github.com/hail0hydra" target="_blank">GitHub</a>
