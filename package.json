@@ -1,7 +1,7 @@
 {
     "name": "virtustotal-elapp",
     "version": "1.0.0",
-    "description": "",
+    "description": "simple file scanner for malware",
     "main": "main.js",
     "scripts": {
         "start": "electron .",
