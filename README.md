@@ -1,9 +1,18 @@
 # virustotal returns
 
+<br>
+
+![vt](./.git/vt.png)
+
+
 - I am just replicating [my python app](https://github.com/hail0hydra/pyVTFile) that I made with tkinter for VirusTotal API.
 
 
 - I am trying out `Electron` while learning JS.
+
+<br>
+
+> DISCLAIMER: no refreshing, no updating, no super stuff implemented. this was my first ever electron project and I dont know much js so this is a big achievement for me. If you feel you can improve this. go ahead. thank you
 
 
 <br>
@@ -14,7 +23,7 @@
 ## usage
 
 
-- create a `.env` in the root of the project and app your ___virusTotal API KEY___
+- create a `.env` in the root of the project and add your ___virusTotal API KEY___
 
 
 ```

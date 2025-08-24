@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>VT Electron</title>
+    <style>
+      /* General body styling */
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: #0f111a; /* deep dark background */
+        color: #ffffff;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        align-items: center;
+        justify-content: center;
+      }
+
+      h1 {
+        color: #4da6ff; /* light blue heading */
+        margin-bottom: 40px;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+      }
+
+      .buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+      }
+
+      button {
+        background: linear-gradient(135deg, #1e90ff, #3a7bd5);
+        color: #fff;
+        border: none;
+        padding: 14px 30px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 600;
+        transition: all 0.2s ease;
+        width: 200px;
+      }
+
+      button:hover {
+        background: linear-gradient(135deg, #3a7bd5, #1e90ff);
+        transform: translateY(-2px);
+      }
+
+      #output {
+        margin-top: 35px;
+        padding: 25px;
+        background: linear-gradient(to right, #1a1a2e, #162447);
+        border-radius: 10px;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        min-width: 350px;
+        text-align: center;
+        font-size: 16px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+      }
+
+      .safe {
+        color: #28a745;
+        font-weight: bold;
+      }
+
+      .malicious {
+        color: #dc3545;
+        font-weight: bold;
+      }
+
+      .footer {
+        text-align: center;
+        margin-top: 50px;
+        font-size: 14px;
+        color: #888;
+      }
+
+      .footer a {
+        color: #4da6ff;
+        text-decoration: none;
+        margin: 0 10px;
+        transition: color 0.2s ease;
+      }
+
+      .footer a:hover {
+        color: #1e90ff;
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>VirusTotal Checker</h1>
+    <div class="buttons">
+      <button id="pickFile">Pick File</button>
+      <button id="scanbutton">Scan File</button>
+    </div>
+    <pre id="output"></pre>
+
+    <div class="footer">
+      <a href="https://github.com/hail0hydra" target="_blank">GitHub</a>
+      <a href="https://medium.com/@avinasharma.2412" target="_blank">Medium</a>
+    </div>
+
+    <script>
+      const pickBtn = document.getElementById("pickFile");
+      const scanBtn = document.getElementById("scanbutton");
+      const output = document.getElementById("output");
+
+      let filePath = null;
+
+      pickBtn.addEventListener("click", async () => {
+        const result = await window.electronAPI.pickFile();
+        if (result && result.filePaths && result.filePaths[0]) {
+          filePath = result.filePaths[0];
+          output.textContent = `Picked file: ${filePath}`;
+        } else {
+          output.textContent = "No file selected!";
+        }
+      });
+
+      scanBtn.addEventListener("click", async () => {
+        if (!filePath) {
+          output.textContent = "No file selected!";
+          return;
+        }
+
+        const result = await window.electronAPI.scanFile(filePath);
+
+        if (result.error) {
+          output.textContent = `Error: ${result.error}`;
+          output.className = "";
+        } else if (result > 0) {
+          output.textContent = `Malicious 😈 Detected: ${result} hits`;
+          output.className = "malicious";
+        } else {
+          output.textContent = "Safe 😍 No threats detected";
+          output.className = "safe";
+        }
+      });
+    </script>
+  </body>
+</html>
+
