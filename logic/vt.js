@@ -21,18 +21,23 @@ async function virusTotal(){
 
     // await fs.writeFile("out.json", JSON.stringify(data, null, 2), "utf-8");
 
-    return data; 
+    const point = Object.keys(data)[0]
+
+    if (data[point].attributes.popular_threat_classification.popular_threat_name[0].count > 0){
+        console.log("malicious 😈");
+        return  data[point].attributes.popular_threat_classification.popular_threat_name[0].count;
+    } else {
+        console.log("safe! 😍");
+        return 0;
+    }
+
+
 }
 
 const file =  await virusTotal();
 
-const point = Object.keys(file)[0];
+console.log(file);
 
-console.log(file[point].attributes.popular_threat_classification.popular_threat_name[0].count);
 
-if (file[point].attributes.popular_threat_classification.popular_threat_name[0].count > 0){
-    console.log("malicious 😈");
-} else {
-    console.log("safe! 😍");
-}
 
+export { virusTotal };
