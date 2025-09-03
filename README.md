@@ -23,7 +23,7 @@
 ## usage
 
 
-- create a `.env` in the root of the project and add your ___virusTotal API KEY___
+- create a `.env` in the root of the project and add your ___virusTotal API KEY___ (free to get)
 
 
 ```
